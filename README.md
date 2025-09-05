@@ -8,8 +8,8 @@ Una semplice applicazione 3D basata su WebGL puro e TypeScript.
 1. **Clona il repository o scarica il progetto**
 
 ```bash
-git clone https://github.com/ManuzXo/Web-Stuff.git
-cd Web-Stuff/WEB GL
+git clone https://github.com/ManuzXo/WebGLEngine.git
+cd WebGLEngine
 ```
 2. **Installa le dipendenze**
 ```bash
