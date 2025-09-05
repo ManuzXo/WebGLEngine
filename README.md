@@ -37,4 +37,4 @@ Il tutto sarà compilato all'interno della  📁 *dist*
 ---
 
 ## 👁‍🗨 Testing
-Puoi provare ad andare sul seguente indirizzo per provare l'applicativo https://manuzxo.github.io/Web-Stuff/WEB%20GL/dist
+Puoi provare ad andare sul seguente indirizzo per provare l'applicativo https://manuzxo.github.io/WebGLEngine/dist/
