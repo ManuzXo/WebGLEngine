@@ -1,0 +1,127 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Canvas */
+        #myCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: margin-left 0.3s;
+            background-color: #222;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/settings.css">
+</head>
+
+<body>
+    <!-- Bottone impostazioni -->
+    <button id="settingsBtn">⚙</button>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <a>Opzione 1</a>
+        <a>Opzione 2</a>
+    </div>
+
+
+    <!-- Canvas -->
+    <canvas id="myCanvas"></canvas>
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const settingsBtn = document.getElementById('settingsBtn');
+        const canvas = document.getElementById('myCanvas');
+
+        // Funzione per calcolare larghezza sidebar in base a dispositivo
+        function getSidebarWidth() {
+            return window.innerWidth <= 600 ? 200 : 250;
+        }
+
+        let sidebarOpen = false;
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            const width = getSidebarWidth();
+            if (!sidebarOpen) {
+                sidebar.style.width = width + 'px';
+                canvas.style.marginLeft = width + 'px';
+                settingsBtn.style.left = width + 10 + 'px';
+            } else {
+                sidebar.style.width = '0';
+                canvas.style.marginLeft = '0';
+                settingsBtn.style.left = '10px';
+            }
+            sidebarOpen = !sidebarOpen;
+        }
+
+        settingsBtn.addEventListener('click', toggleSidebar);
+
+        // Aggiorna layout se ridimensioni finestra
+        window.addEventListener('resize', () => {
+            if (sidebarOpen) {
+                const width = getSidebarWidth();
+                sidebar.style.width = width + 'px';
+                canvas.style.marginLeft = width + 'px';
+                settingsBtn.style.left = width + 10 + 'px';
+            }
+        });
+    </script>
+
+    <script id="gameobject-vertex-shader" type="x-shader/x-vertex">
+        attribute vec3 aPosition;
+        attribute vec4 aColor;
+        attribute vec2 aTexCoord;
+
+        uniform mat4 uModelMatrix;
+        uniform mat4 uViewMatrix;
+        uniform mat4 uProjectionMatrix;
+
+        varying vec4 vColor;
+        varying vec2 vTexCoord;
+
+        void main() {
+            gl_Position = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(aPosition, 1.0);
+            vColor = aColor;
+            vTexCoord = aTexCoord; // passo le UV al fragment shader
+        }
+    </script>
+    <script id="gameobject-fragment-shader" type="x-shader/x-fragment">
+        #ifdef GL_ES
+        precision highp float;
+        #endif
+
+        uniform vec4 uGlobalColor;
+        uniform sampler2D uTexture; 
+        uniform bool uUseTexture;
+
+        varying vec4 vColor;
+        varying vec2 vTexCoord;
+
+        void main() {
+            if (uUseTexture) {
+                // prendi il colore dalla texture
+                gl_FragColor = texture2D(uTexture, vTexCoord) * vColor;
+            } else {
+                // usa solo il colore (come prima)
+                gl_FragColor = vColor;
+            }
+        }
+
+    </script>
+    <script src="bundle.js"></script>
+</body>
+
+</html>

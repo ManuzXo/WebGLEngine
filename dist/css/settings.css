@@ -1,0 +1,67 @@
+  /* Bottone impostazioni migliorato e responsive */
+  #settingsBtn {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      font-size: 24px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  #settingsBtn:hover {
+      background-color: #555;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Sidebar */
+  #sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #444;
+      overflow-x: hidden;
+      transition: width 0.3s;
+      padding-top: 60px;
+      color: white;
+      z-index: 1;
+  }
+
+  #sidebar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 20px;
+      color: white;
+      display: block;
+  }
+
+  #sidebar a:hover {
+      background-color: #555;
+  }
+
+  /* RESPONSIVE */
+  @media screen and (max-width: 600px) {
+      #settingsBtn {
+          width: 40px;
+          height: 40px;
+          font-size: 20px;
+      }
+
+      #sidebar a {
+          font-size: 18px;
+          padding: 8px 16px;
+      }
+  }
